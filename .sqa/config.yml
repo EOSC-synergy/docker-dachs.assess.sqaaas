@@ -1,0 +1,52 @@
+config:
+  credentials: []
+  project_repos:
+    github.com/EOSC-synergy/sqaaas-tooling:
+      branch: feature/pynblint
+      repo: https://github.com/EOSC-synergy/sqaaas-tooling
+    github.com/gavodachs/docker-dachs:
+      branch: master
+      repo: https://github.com/gavodachs/docker-dachs
+environment:
+  JPL_DOCKERFORCEBUILD: enabled
+  JPL_KEEPGOING: enabled
+sqa_criteria:
+  QC.Acc:
+    repos:
+      github.com/gavodachs/docker-dachs git:
+        commands:
+        - /usr/bin/env sh .sqa/script.shabby-wheat-chinchilla.sh
+        container: qc.acc_stealthy-ruby-macaque
+  QC.Doc:
+    repos:
+      github.com/gavodachs/docker-dachs find_doc_files.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.randy-cyan-hedgehog.sh
+        container: qc.doc_muzzy-cream-discus
+      github.com/gavodachs/docker-dachs git:
+        commands:
+        - /usr/bin/env sh .sqa/script.gamy-wheat-albatross.sh
+        container: qc.doc_cozy-chestnut-newt
+      github.com/gavodachs/docker-dachs markdownlint:
+        commands:
+        - /usr/bin/env sh .sqa/script.cozy-corn-koala.sh
+        container: qc.doc_geeky-scarlet-coati
+  QC.Lic:
+    repos:
+      github.com/gavodachs/docker-dachs licensee:
+        commands:
+        - /usr/bin/env sh .sqa/script.stuffy-heliotrope-shrimp.sh
+        container: qc.lic_stuffy-champagne-sheep
+  QC.Sty:
+    repos:
+      github.com/gavodachs/docker-dachs hadolint:
+        commands:
+        - /usr/bin/env sh .sqa/script.stealthy-goldenrod-bracke.sh
+        container: qc.sty_ugly-myrtle-tapir
+  QC.Ver:
+    repos:
+      github.com/gavodachs/docker-dachs get_git_tags.py:
+        commands:
+        - /usr/bin/env sh .sqa/script.seedy-wheat-olm.sh
+        container: qc.ver_wheezy-saffron-chicken
+timeout: 5400
